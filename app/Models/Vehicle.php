@@ -9,6 +9,13 @@ class Vehicle extends Model
 {
     use HasFactory;
 
+    public function isActive() {
+        if ($this->status == 1) {
+            return true;
+        }
+        return false;
+    }
+
     public function vehicleType() {
         return $this->belongsTo(VehicleType::class, 'vehicle_type', 'id');
     }
@@ -22,8 +29,8 @@ class Vehicle extends Model
         return $value;
     }
 
-    public function getVinAttribute() {
-        return "{$this->vin}";
+    public function getVinAttribute($value) {
+        return strToUpper($value);
     }
 
     public function getTitleAttribute() {

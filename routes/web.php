@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VehicleImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles');
     Route::get('vehicles/edit/{id}', [VehicleController::class, 'edit'])->name('vehicles.edit');
     Route::get('vehicles/delete/{id}', [VehicleController::class, 'delete'])->name('vehicles.delete');
+
+    // Vehicle Images
+    Route::get('vehicles/image/{id}', [VehicleImageController::class, 'showSingle'])->name('vehicles.image.show');
+    Route::get('vehicles/images/{id}', [VehicleImageController::class, 'showAll'])->name('vehicles.image.show');
 
 
     // Extra stuff for development

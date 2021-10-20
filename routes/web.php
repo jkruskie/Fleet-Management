@@ -35,9 +35,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('vehicles/delete/{id}', [VehicleController::class, 'delete'])->name('vehicles.delete');
 
     // Vehicle Images
-    Route::get('vehicles/image/{id}', [VehicleImageController::class, 'showSingle'])->name('vehicles.image.show');
-    Route::get('vehicles/images/{id}', [VehicleImageController::class, 'showAll'])->name('vehicles.image.show');
-
+    Route::get('vehicles/{id}/image/{uuid}', [VehicleImageController::class, 'getImage'])->name('vehicles.image.show');
 
     // Extra stuff for development
     Route::view('forms', 'forms')->name('forms');

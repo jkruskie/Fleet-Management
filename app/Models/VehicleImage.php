@@ -9,7 +9,13 @@ class VehicleImage extends Model
 {
     use HasFactory;
 
-    public static function getSingleImage($id) {
-        return VehicleImage::whereVehicleId($id)->whereTeamId(\Auth::user()->current_team_id)->first();
+
+    public function Vehicle() {
+        return $this->belongsTo(Vehicle::class);
     }
+
+    public static function getImage($id, $uuid) {
+        return VehicleImage::whereVehicleId($id)->whereUrl($uuid)->whereTeamId(\Auth::user()->current_team_id)->first();
+    }
+
 }

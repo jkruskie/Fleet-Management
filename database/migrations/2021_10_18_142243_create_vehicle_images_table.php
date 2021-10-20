@@ -18,6 +18,7 @@ class CreateVehicleImagesTable extends Migration
             $table->longText('url');
             $table->foreignId('vehicle_id');
             $table->foreignId('team_id');
+            $table->tinyInteger('is_default')->comment('1: default, 0: everything else')->default(0);
             $table->timestamps();
         });
     }

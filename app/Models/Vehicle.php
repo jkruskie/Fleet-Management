@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\VehicleImage;
 
 class Vehicle extends Model
 {
@@ -20,13 +21,19 @@ class Vehicle extends Model
         return $this->belongsTo(VehicleType::class, 'vehicle_type', 'id');
     }
 
-    public function getImageAttribute($value) {
-        // Return default picture is none if given
-        // TODO : Separate pictures based on vehicle type
-        if(is_null($value)) {
-            $value = 'https://saints-auto.com/wp-content/uploads/2017/06/car-placeholder-2-700.jpg';
+    public function images() {
+        return $this->hasMany(VehicleImage::class);
+    }
+
+    public function defaultImage() {
+        $image = $this->hasOne(VehicleImage::class)->where('is_default', 1)->first();
+        if($image) {
+            // Vehicle has its own images
+            return $image->url;
         }
-        return $value;
+        // Vehicle doesn't have its own images, return vehicletype default
+        $image = $this->vehicleType;
+        return $image->image;
     }
 
     public function getVinAttribute($value) {
